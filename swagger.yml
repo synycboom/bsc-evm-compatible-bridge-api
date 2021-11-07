@@ -1,0 +1,338 @@
+swagger: '2.0'
+info:
+  title: 'BSC <-> EVM Compatible Bridge API'
+  version: 0.1.0
+  description: 'The BSC <-> EVM Compatible Swap API: provide swap service between BSC and EVM Compatible, which is based on https://github.com/binance-chain/eth-swap-ap'
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+basePath: /
+schemes:
+  - https
+produces:
+  - application/json
+tags:
+  -
+    name: erc_721_swap_pairs
+    description: 'Erc721Swap Pair list'
+  -
+    name: erc_721_swaps
+    description: 'Erc721Swap list'
+paths:
+  /v1/erc-721-swap-pairs:
+    get:
+      tags:
+        - erc_721_swap_pairs
+      summary: Gets a list of available swap pairs.
+      operationId: getErc721SwapPairs
+      parameters:
+        -
+          in: query
+          name: offset
+          description: offset
+          required: false
+          type: integer
+          default: 0
+          minimum: 0
+          maximum: 10000
+          format: int32
+        -
+          in: query
+          name: limit
+          description: limit
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 10000
+          default: 100
+          format: int32
+        -
+          in: query
+          name: available
+          description: boolean
+          required: true
+          type: boolean
+          pattern: "^(0x)[0-9A-Fa-f]{40}$"
+        -
+          in: query
+          name: state
+          description: state
+          required: false
+          enum: ["registration_ongoing", "registration_confirmed", "creation_tx_dry_run_failed", "creation_tx_created", "creation_tx_sent", "creation_tx_confirmed", "creation_tx_failed", "creation_tx_missing"]
+          type: string
+        -
+          in: query
+          name: src_chain_id
+          required: false
+          description: source chain id
+          type: string
+        -
+          in: query
+          name: dst_chain_id
+          required: false
+          description: destination chain id
+          type: string
+        -
+          in: query
+          name: src_token_addr
+          description: source token address
+          required: false
+          pattern: "^(0x)[0-9A-Fa-f]{64}$"
+          type: string
+        -
+          in: query
+          name: dst_token_addr
+          description: destination token address
+          required: false
+          pattern: "^(0x)[0-9A-Fa-f]{64}$"
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Erc721SwapPairs'
+        '400':
+          description: 'Bad Request'
+          schema:
+            $ref: "#/definitions/Error"
+        '500':
+          description: 'internal server error'
+          schema:
+            $ref: "#/definitions/Error"
+  /v1/info:
+    get:
+      tags:
+        - svcInfo
+      summary: Gets service info
+      operationId: getInfo
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/ServiceInfo'
+        '400':
+          description: 'Bad Request'
+          schema:
+            $ref: "#/definitions/Error"
+        '500':
+          description: 'internal server error'
+          schema:
+            $ref: "#/definitions/Error"
+
+  /v1/erc-721-swaps:
+    get:
+      tags:
+        - erc_721_swaps
+      summary: Gets list of swap.
+      operationId: getErc721Swaps
+      parameters:
+        -
+          in: query
+          name: offset
+          description: offset
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+          default: 0
+          format: int32
+        -
+          in: query
+          name: limit
+          description: limit
+          minimum: 0
+          maximum: 1000
+          required: false
+          type: integer
+          default: 100
+          format: int32
+        -
+          in: query
+          name: sender
+          description: address
+          required: true
+          type: string
+          pattern: "^(0x)[0-9A-Fa-f]{40}$"
+        -
+          in: query
+          name: state
+          description: state
+          required: false
+          enum: ["request_ongoing", "request_rejected", "request_confirmed", "fill_tx_dry_run_failed", "fill_tx_created", "fill_tx_sent", "fill_tx_confirmed", "fill_tx_failed", "fill_tx_missing"]
+          type: string
+        -
+          in: query
+          name: request_tx_hash
+          description: request_tx_hash
+          required: false
+          pattern: "^(0x)[0-9A-Fa-f]{64}$"
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Erc721Swaps'
+        '400':
+          description: 'Bad Request'
+          schema:
+            $ref: "#/definitions/Error"
+        '500':
+          description: 'internal server error'
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  Error:
+    type: object
+    required:
+      - message
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string
+        
+  Erc721SwapPairs:
+    type: object
+    properties:
+      total:
+        type: integer
+        x-omitempty: false
+      pairs:
+        type: array
+        items:
+          $ref: "#/definitions/Erc721SwapPair"
+        x-omitempty: false
+
+  Erc721SwapPair:
+    type: object
+    properties:
+      src_chain_id:
+        type: string
+        x-omitempty: false
+      dst_chain_id:
+        type: string
+        x-omitempty: false
+      src_token_addr:
+        type: string
+        x-omitempty: false
+      dst_token_addr:
+        type: string
+        x-omitempty: false
+      src_token_name:
+        type: string
+        x-omitempty: false
+      dst_token_name:
+        type: string
+        x-omitempty: false
+      available:
+        type: boolean
+        x-omitempty: false
+      register_tx_hash:
+        type: string
+        x-omitempty: false
+      create_tx_hash:
+        type: string
+        x-omitempty: false
+      sponsor:
+        type: string
+        x-omitempty: false
+      symbol:
+        type: string
+        example: USDT
+        x-omitempty: false
+      state:
+        type: string
+        x-omitempty: false
+      base_uri:
+        type: string
+        x-omitempty: false
+      created_at:
+        type: string
+        x-omitempty: false
+      updated_at:
+        type: string
+        x-omitempty: false
+
+  Erc721Swaps:
+    type: object
+    properties:
+      total:
+        type: integer
+        x-omitempty: false
+      erc_721_swaps:
+        type: array
+        items:
+          $ref: "#/definitions/Erc721Swap"
+        x-omitempty: false
+        
+  Erc721Swap:
+    type: object
+    properties:
+      created_at:
+        type: string
+        x-omitempty: false
+      updated_at:
+        type: string
+        x-omitempty: false
+      src_chain_id:
+        type: string
+        x-omitempty: false
+      dst_chain_id:
+        type: string
+        x-omitempty: false
+      src_token_addr:
+        type: string
+        x-omitempty: false
+      dst_token_addr:
+        type: string
+        x-omitempty: false
+      src_token_name:
+        type: string
+        x-omitempty: false
+      dst_token_name:
+        type: string
+        x-omitempty: false
+      sender:
+        type: string
+        x-omitempty: false
+      recipient:
+        type: string
+        x-omitempty: false
+      token_id:
+        type: string
+        x-omitempty: false
+      token_uri:
+        type: string
+        x-omitempty: false
+      base_uri:
+        type: string
+        x-omitempty: false
+      state:
+        type: string
+        x-omitempty: false
+      swap_direction:
+        type: string
+        x-omitempty: false
+      request_tx_hash:
+        type: string
+        x-omitempty: false
+      fill_tx_hash:
+        type: string
+        x-omitempty: false
+
+  ServiceInfo:
+    type: object
+    properties:
+      eth_swap_agent:
+        type: string
+        x-omitempty: false
+      bsc_swap_agent:
+        type: string
+        x-omitempty: false
