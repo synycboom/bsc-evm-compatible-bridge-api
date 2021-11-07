@@ -46,15 +46,16 @@ func InitConfigFromFile(configFileName string) *Config {
 	return &configOpts
 }
 
-func InitConfigFromSecret(secretName, secretRegion string, config *Config) *Config {
+func InitConfigFromSecret(secretName, secretRegion string) *Config {
 	bzStr, err := svc.GetSecret(secretName, secretRegion)
 	if err != nil {
 		panic(err)
 	}
 
-	if err := json.Unmarshal([]byte(bzStr), config); err != nil {
+	var configOpts Config
+	if err := json.Unmarshal([]byte(bzStr), &configOpts); err != nil {
 		panic(err)
 	}
 
-	return config
+	return &configOpts
 }

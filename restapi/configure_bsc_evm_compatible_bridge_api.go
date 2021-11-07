@@ -121,7 +121,7 @@ func configureServer(s *http.Server, scheme, addr string) {
 		config = cfg.InitConfigFromFile(configFileName)
 	}
 	if secretName != "" && secretRegion != "" {
-		config = cfg.InitConfigFromSecret(secretName, secretRegion, config)
+		config = cfg.InitConfigFromSecret(secretName, secretRegion)
 	}
 
 	// init logger
