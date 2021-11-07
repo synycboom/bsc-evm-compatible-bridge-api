@@ -132,16 +132,19 @@ func configureServer(s *http.Server, scheme, addr string) {
 	c := cors.New(cors.Options{
 		AllowedOrigins:   config.CorsConfig.AllowedOrigins,
 		AllowCredentials: true,
+		Debug:            true,
 	})
+
+	s.Handler = c.Handler(s.Handler)
 
 	// init cache
 	store := cache.NewMemStorage()
 	swapPairCacheMS := config.CacheTTLs["swap_pairs"] * time.Millisecond.Nanoseconds()
-	erc721SwapPairCache = middlewares.NewMWCacher(c, store, time.Duration(swapPairCacheMS))
+	erc721SwapPairCache = middlewares.NewMWCacher(store, time.Duration(swapPairCacheMS))
 	swapsCacheMs := config.CacheTTLs["swaps"] * time.Millisecond.Nanoseconds()
-	erc721SwapCache = middlewares.NewMWCacher(c, store, time.Duration(swapsCacheMs))
+	erc721SwapCache = middlewares.NewMWCacher(store, time.Duration(swapsCacheMs))
 	infoCacheMs := config.CacheTTLs["info"] * time.Millisecond.Nanoseconds()
-	infoCache = middlewares.NewMWCacher(c, store, time.Duration(infoCacheMs))
+	infoCache = middlewares.NewMWCacher(store, time.Duration(infoCacheMs))
 
 	cacheService = services.NewCacheService(store, cacheServiceTickRate)
 	if err := cacheService.Start(); err != nil {

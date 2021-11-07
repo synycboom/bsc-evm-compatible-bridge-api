@@ -8,7 +8,6 @@ import (
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/rs/cors"
 
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/utils"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/utils/cache"
@@ -26,16 +25,14 @@ var (
 
 type MWCacher struct {
 	cache    cache.Store
-	cors     *cors.Cors
 	duration time.Duration
 }
 
 type responderGetter func() middleware.Responder
 
-func NewMWCacher(c *cors.Cors, store cache.Store, duration time.Duration) *MWCacher {
+func NewMWCacher(store cache.Store, duration time.Duration) *MWCacher {
 	return &MWCacher{
 		cache:    store,
-		cors:     c,
 		duration: duration,
 	}
 }
@@ -113,6 +110,5 @@ func (r *mwResponder) WriteResponse(w http.ResponseWriter, p runtime.Producer) {
 
 // WriteResponseHandlerFunc is used as a replacement for the standard method of using Cacher when a http.HandlerFunc is wanted
 func (r *mwResponder) WriteResponseHandlerFunc(w http.ResponseWriter, req *http.Request) {
-	r.cors.HandlerFunc(w, req)
 	r.WriteResponse(w, nil)
 }
