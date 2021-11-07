@@ -15,7 +15,6 @@ import (
 
 // GetErc721SwapPairsURL generates an URL for the get erc721 swap pairs operation
 type GetErc721SwapPairsURL struct {
-	Available    bool
 	DstChainID   *string
 	DstTokenAddr *string
 	Limit        *int32
@@ -57,11 +56,6 @@ func (o *GetErc721SwapPairsURL) Build() (*url.URL, error) {
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
 
 	qs := make(url.Values)
-
-	availableQ := swag.FormatBool(o.Available)
-	if availableQ != "" {
-		qs.Set("available", availableQ)
-	}
 
 	var dstChainIDQ string
 	if o.DstChainID != nil {

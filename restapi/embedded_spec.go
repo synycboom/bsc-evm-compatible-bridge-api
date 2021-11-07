@@ -66,14 +66,6 @@ func init() {
             "in": "query"
           },
           {
-            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
-            "type": "boolean",
-            "description": "boolean",
-            "name": "available",
-            "in": "query",
-            "required": true
-          },
-          {
             "enum": [
               "registration_ongoing",
               "registration_confirmed",
@@ -516,14 +508,6 @@ func init() {
             "description": "limit",
             "name": "limit",
             "in": "query"
-          },
-          {
-            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
-            "type": "boolean",
-            "description": "boolean",
-            "name": "available",
-            "in": "query",
-            "required": true
           },
           {
             "enum": [

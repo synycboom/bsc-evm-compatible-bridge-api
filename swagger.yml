@@ -48,13 +48,6 @@ paths:
           format: int32
         -
           in: query
-          name: available
-          description: boolean
-          required: true
-          type: boolean
-          pattern: "^(0x)[0-9A-Fa-f]{40}$"
-        -
-          in: query
           name: state
           description: state
           required: false

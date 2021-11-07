@@ -43,11 +43,6 @@ type GetErc721SwapPairsParams struct {
 	// HTTP Request Object
 	HTTPRequest *http.Request `json:"-"`
 
-	/*boolean
-	  Required: true
-	  In: query
-	*/
-	Available bool
 	/*destination chain id
 	  In: query
 	*/
@@ -97,11 +92,6 @@ func (o *GetErc721SwapPairsParams) BindRequest(r *http.Request, route *middlewar
 
 	qs := runtime.Values(r.URL.Query())
 
-	qAvailable, qhkAvailable, _ := qs.GetOK("available")
-	if err := o.bindAvailable(qAvailable, qhkAvailable, route.Formats); err != nil {
-		res = append(res, err)
-	}
-
 	qDstChainID, qhkDstChainID, _ := qs.GetOK("dst_chain_id")
 	if err := o.bindDstChainID(qDstChainID, qhkDstChainID, route.Formats); err != nil {
 		res = append(res, err)
@@ -139,32 +129,6 @@ func (o *GetErc721SwapPairsParams) BindRequest(r *http.Request, route *middlewar
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// bindAvailable binds and validates parameter Available from query.
-func (o *GetErc721SwapPairsParams) bindAvailable(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	if !hasKey {
-		return errors.Required("available", "query", rawData)
-	}
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
-
-	// Required: true
-	// AllowEmptyValue: false
-
-	if err := validate.RequiredString("available", "query", raw); err != nil {
-		return err
-	}
-
-	value, err := swag.ConvertBool(raw)
-	if err != nil {
-		return errors.InvalidType("available", "query", "bool", raw)
-	}
-	o.Available = value
-
 	return nil
 }
 
