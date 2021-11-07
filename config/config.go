@@ -14,6 +14,7 @@ type Config struct {
 	CacheTTLs  map[string]int64 `json:"cache_ttls"`
 	DB         DBConfig         `json:"db"`
 	SwapConfig SwapConfig       `json:"swap_config"`
+	CorsConfig CorsConfig       `json:"cors"`
 }
 
 type Consumer struct {
@@ -29,6 +30,10 @@ type SwapConfig struct {
 type DBConfig struct {
 	DSN      string `json:"dsn"`
 	LogLevel string `json:"log_level"`
+}
+
+type CorsConfig struct {
+	AllowedOrigins []string `json:"allowed_origins"`
 }
 
 // InitConfigFromFile initializes a new Env from configuration file.

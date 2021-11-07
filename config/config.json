@@ -22,5 +22,8 @@
   "swap_config": {
     "eth_swap_agent": "0xebd43f8a3b3f0f2d1734f2547430f6be6bb43fdf",
     "bsc_swap_agent": "0x892916218a197e3C6ce5765E8389FAEE9Beb2219"
+  },
+  "cors": {
+    "allowed_origins": ["http://localhost:8080"]
   }
 }

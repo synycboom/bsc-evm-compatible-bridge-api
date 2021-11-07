@@ -70,14 +70,14 @@ paths:
           name: src_token_addr
           description: source token address
           required: false
-          pattern: "^(0x)[0-9A-Fa-f]{64}$"
+          pattern: "^(0x)[0-9A-Fa-f]{40}$"
           type: string
         -
           in: query
           name: dst_token_addr
           description: destination token address
           required: false
-          pattern: "^(0x)[0-9A-Fa-f]{64}$"
+          pattern: "^(0x)[0-9A-Fa-f]{40}$"
           type: string
       produces:
         - application/json
