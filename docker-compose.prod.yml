@@ -4,8 +4,11 @@ services:
     container_name: bsc-evm-compatible-bridge-api
     build: .
     restart: "on-failure"
-    command: ./build/bsc-evm-compatible-bridge-api --tls-certificate=${TLS_CERTIFICATE} --tls-key=${TLS_KEY} --scheme=https --host=${AP_HOST} --port=${AP_PORT} --cleanup-timeout=${AP_CLEANUP_TIMEOUT} --secret-name=${SECRET_NAME} --secret-region=${SECRET_REGION}
+    command: ./build/bsc-evm-compatible-bridge-api --tls-certificate=/opt/app/cert.pem --tls-key=/opt/app/privKey.pem --scheme=https --tls-port=443 --cleanup-timeout=${AP_CLEANUP_TIMEOUT} --secret-name=${SECRET_NAME} --secret-region=${SECRET_REGION}
     env_file:
       - .env
+    volumes:
+      - ${TLS_CERTIFICATE_FILE}:/opt/app/cert.pem
+      - ${TLS_KEY_FILE}:/opt/app/privKey.pem
     ports:
       - 8080:8080
