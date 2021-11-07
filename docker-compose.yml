@@ -6,3 +6,5 @@ services:
     restart: "on-failure"
     volumes:
       - ./config/config.json:/opt/app/config.json
+    ports:
+      - 8080:8080
