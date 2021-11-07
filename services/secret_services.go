@@ -10,8 +10,10 @@ import (
 
 func GetSecret(secretName, region string) (string, error) {
 	//Create a Secrets Manager client
+	verbose := true
 	sess, err := session.NewSession(&aws.Config{
-		Region: &region,
+		CredentialsChainVerboseErrors: &verbose,
+		Region:                        &region,
 	})
 	if err != nil {
 		return "", err
