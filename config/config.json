@@ -17,7 +17,7 @@
   },
   "db": {
     "log_level": "WARN",
-    "dsn": "username:password@tcp(127.0.0.1:3306)/nft_bridge?charset=utf8mb4&parseTime=True&loc=Local"
+    "dsn": "username:password@tcp(host.docker.internal:3306)/nft_bridge?charset=utf8mb4&parseTime=True&loc=Local"
   },
   "swap_config": {
     "eth_swap_agent": "0xebd43f8a3b3f0f2d1734f2547430f6be6bb43fdf",

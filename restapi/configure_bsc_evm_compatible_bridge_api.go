@@ -4,7 +4,6 @@ package restapi
 
 import (
 	"crypto/tls"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -115,7 +114,6 @@ func configureServer(s *http.Server, scheme, addr string) {
 	configFileName := cliOpts.ConfigFileName
 	secretName := cliOpts.SecretName
 	secretRegion := cliOpts.SecretRegion
-	fmt.Printf("%#v\n", cliOpts)
 	if configFileName == "" && (secretName == "" || secretRegion == "") {
 		panic("missing config file path and secret path")
 	}

@@ -1,0 +1,8 @@
+version: "3"
+services:
+  bsc-evm-compatible-bridge-api:
+    container_name: bsc-evm-compatible-bridge-api
+    build: .
+    restart: "on-failure"
+    volumes:
+      - ./config/config.json:/opt/app/config.json
