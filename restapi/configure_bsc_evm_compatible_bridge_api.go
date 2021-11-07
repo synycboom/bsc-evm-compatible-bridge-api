@@ -11,6 +11,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/swag"
+	"github.com/rs/cors"
 
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/dao"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/middlewares"
@@ -127,14 +128,20 @@ func configureServer(s *http.Server, scheme, addr string) {
 	// init logger
 	log.InitLogger(config.Logs)
 
+	// init cors
+	c := cors.New(cors.Options{
+		AllowedOrigins:   config.CorsConfig.AllowedOrigins,
+		AllowCredentials: true,
+	})
+
 	// init cache
 	store := cache.NewMemStorage()
 	swapPairCacheMS := config.CacheTTLs["swap_pairs"] * time.Millisecond.Nanoseconds()
-	erc721SwapPairCache = middlewares.NewMWCacher(store, time.Duration(swapPairCacheMS))
+	erc721SwapPairCache = middlewares.NewMWCacher(c, store, time.Duration(swapPairCacheMS))
 	swapsCacheMs := config.CacheTTLs["swaps"] * time.Millisecond.Nanoseconds()
-	erc721SwapCache = middlewares.NewMWCacher(store, time.Duration(swapsCacheMs))
+	erc721SwapCache = middlewares.NewMWCacher(c, store, time.Duration(swapsCacheMs))
 	infoCacheMs := config.CacheTTLs["info"] * time.Millisecond.Nanoseconds()
-	infoCache = middlewares.NewMWCacher(store, time.Duration(infoCacheMs))
+	infoCache = middlewares.NewMWCacher(c, store, time.Duration(infoCacheMs))
 
 	cacheService = services.NewCacheService(store, cacheServiceTickRate)
 	if err := cacheService.Start(); err != nil {

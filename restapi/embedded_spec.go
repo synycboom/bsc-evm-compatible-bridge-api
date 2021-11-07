@@ -94,14 +94,14 @@ func init() {
             "in": "query"
           },
           {
-            "pattern": "^(0x)[0-9A-Fa-f]{64}$",
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
             "type": "string",
             "description": "source token address",
             "name": "src_token_addr",
             "in": "query"
           },
           {
-            "pattern": "^(0x)[0-9A-Fa-f]{64}$",
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
             "type": "string",
             "description": "destination token address",
             "name": "dst_token_addr",
@@ -538,14 +538,14 @@ func init() {
             "in": "query"
           },
           {
-            "pattern": "^(0x)[0-9A-Fa-f]{64}$",
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
             "type": "string",
             "description": "source token address",
             "name": "src_token_addr",
             "in": "query"
           },
           {
-            "pattern": "^(0x)[0-9A-Fa-f]{64}$",
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
             "type": "string",
             "description": "destination token address",
             "name": "dst_token_addr",

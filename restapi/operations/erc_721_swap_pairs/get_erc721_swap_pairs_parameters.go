@@ -48,7 +48,7 @@ type GetErc721SwapPairsParams struct {
 	*/
 	DstChainID *string
 	/*destination token address
-	  Pattern: ^(0x)[0-9A-Fa-f]{64}$
+	  Pattern: ^(0x)[0-9A-Fa-f]{40}$
 	  In: query
 	*/
 	DstTokenAddr *string
@@ -71,7 +71,7 @@ type GetErc721SwapPairsParams struct {
 	*/
 	SrcChainID *string
 	/*source token address
-	  Pattern: ^(0x)[0-9A-Fa-f]{64}$
+	  Pattern: ^(0x)[0-9A-Fa-f]{40}$
 	  In: query
 	*/
 	SrcTokenAddr *string
@@ -175,7 +175,7 @@ func (o *GetErc721SwapPairsParams) bindDstTokenAddr(rawData []string, hasKey boo
 // validateDstTokenAddr carries on validations for parameter DstTokenAddr
 func (o *GetErc721SwapPairsParams) validateDstTokenAddr(formats strfmt.Registry) error {
 
-	if err := validate.Pattern("dst_token_addr", "query", *o.DstTokenAddr, `^(0x)[0-9A-Fa-f]{64}$`); err != nil {
+	if err := validate.Pattern("dst_token_addr", "query", *o.DstTokenAddr, `^(0x)[0-9A-Fa-f]{40}$`); err != nil {
 		return err
 	}
 
@@ -309,7 +309,7 @@ func (o *GetErc721SwapPairsParams) bindSrcTokenAddr(rawData []string, hasKey boo
 // validateSrcTokenAddr carries on validations for parameter SrcTokenAddr
 func (o *GetErc721SwapPairsParams) validateSrcTokenAddr(formats strfmt.Registry) error {
 
-	if err := validate.Pattern("src_token_addr", "query", *o.SrcTokenAddr, `^(0x)[0-9A-Fa-f]{64}$`); err != nil {
+	if err := validate.Pattern("src_token_addr", "query", *o.SrcTokenAddr, `^(0x)[0-9A-Fa-f]{40}$`); err != nil {
 		return err
 	}
 
