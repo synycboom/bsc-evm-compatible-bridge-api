@@ -19,6 +19,8 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
+	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_1155_swap_pairs"
+	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_1155_swaps"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_721_swap_pairs"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_721_swaps"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/svc_info"
@@ -46,6 +48,12 @@ func NewBscEvmCompatibleBridgeAPIAPI(spec *loads.Document) *BscEvmCompatibleBrid
 
 		JSONProducer: runtime.JSONProducer(),
 
+		Erc1155SwapPairsGetErc1155SwapPairsHandler: erc_1155_swap_pairs.GetErc1155SwapPairsHandlerFunc(func(params erc_1155_swap_pairs.GetErc1155SwapPairsParams) middleware.Responder {
+			return middleware.NotImplemented("operation erc_1155_swap_pairs.GetErc1155SwapPairs has not yet been implemented")
+		}),
+		Erc1155SwapsGetErc1155SwapsHandler: erc_1155_swaps.GetErc1155SwapsHandlerFunc(func(params erc_1155_swaps.GetErc1155SwapsParams) middleware.Responder {
+			return middleware.NotImplemented("operation erc_1155_swaps.GetErc1155Swaps has not yet been implemented")
+		}),
 		Erc721SwapPairsGetErc721SwapPairsHandler: erc_721_swap_pairs.GetErc721SwapPairsHandlerFunc(func(params erc_721_swap_pairs.GetErc721SwapPairsParams) middleware.Responder {
 			return middleware.NotImplemented("operation erc_721_swap_pairs.GetErc721SwapPairs has not yet been implemented")
 		}),
@@ -91,6 +99,10 @@ type BscEvmCompatibleBridgeAPIAPI struct {
 	//   - application/json
 	JSONProducer runtime.Producer
 
+	// Erc1155SwapPairsGetErc1155SwapPairsHandler sets the operation handler for the get erc1155 swap pairs operation
+	Erc1155SwapPairsGetErc1155SwapPairsHandler erc_1155_swap_pairs.GetErc1155SwapPairsHandler
+	// Erc1155SwapsGetErc1155SwapsHandler sets the operation handler for the get erc1155 swaps operation
+	Erc1155SwapsGetErc1155SwapsHandler erc_1155_swaps.GetErc1155SwapsHandler
 	// Erc721SwapPairsGetErc721SwapPairsHandler sets the operation handler for the get erc721 swap pairs operation
 	Erc721SwapPairsGetErc721SwapPairsHandler erc_721_swap_pairs.GetErc721SwapPairsHandler
 	// Erc721SwapsGetErc721SwapsHandler sets the operation handler for the get erc721 swaps operation
@@ -174,6 +186,12 @@ func (o *BscEvmCompatibleBridgeAPIAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
+	if o.Erc1155SwapPairsGetErc1155SwapPairsHandler == nil {
+		unregistered = append(unregistered, "erc_1155_swap_pairs.GetErc1155SwapPairsHandler")
+	}
+	if o.Erc1155SwapsGetErc1155SwapsHandler == nil {
+		unregistered = append(unregistered, "erc_1155_swaps.GetErc1155SwapsHandler")
+	}
 	if o.Erc721SwapPairsGetErc721SwapPairsHandler == nil {
 		unregistered = append(unregistered, "erc_721_swap_pairs.GetErc721SwapPairsHandler")
 	}
@@ -271,6 +289,14 @@ func (o *BscEvmCompatibleBridgeAPIAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/v1/erc-1155-swap-pairs"] = erc_1155_swap_pairs.NewGetErc1155SwapPairs(o.context, o.Erc1155SwapPairsGetErc1155SwapPairsHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/v1/erc-1155-swaps"] = erc_1155_swaps.NewGetErc1155Swaps(o.context, o.Erc1155SwapsGetErc1155SwapsHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

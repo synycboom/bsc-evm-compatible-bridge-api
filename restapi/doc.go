@@ -4,6 +4,7 @@
 //
 //  The BSC <-> EVM Compatible Swap API: provide swap service between BSC and EVM Compatible, which is based on https://github.com/binance-chain/eth-swap-ap
 //  Schemes:
+//    http
 //    https
 //  Host: localhost
 //  BasePath: /

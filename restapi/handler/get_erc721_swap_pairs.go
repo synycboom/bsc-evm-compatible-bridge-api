@@ -13,22 +13,22 @@ import (
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/utils/env"
 )
 
-type GetSwapPairsHandler struct {
+type GetERC721SwapPairsHandler struct {
 	*env.Env
 	H func(e *env.Env, params erc_721_swap_pairs.GetErc721SwapPairsParams) middleware.Responder
 }
 
-func (h GetSwapPairsHandler) Serve(params erc_721_swap_pairs.GetErc721SwapPairsParams) middleware.Responder {
+func (h GetERC721SwapPairsHandler) Serve(params erc_721_swap_pairs.GetErc721SwapPairsParams) middleware.Responder {
 	responder := h.H(h.Env, params)
 	return responder
 }
 
-// NewGetSwapPairsHandler creates a new NewGetSwapPairsHandler instance.
-func NewGetSwapPairsHandler(e *env.Env, api *operations.BscEvmCompatibleBridgeAPIAPI) GetSwapPairsHandler {
-	return GetSwapPairsHandler{
+// NewGetERC721SwapPairsHandler creates a new GetERC721SwapPairsHandler instance.
+func NewGetERC721SwapPairsHandler(e *env.Env, api *operations.BscEvmCompatibleBridgeAPIAPI) GetERC721SwapPairsHandler {
+	return GetERC721SwapPairsHandler{
 		Env: e,
 		H: func(e *env.Env, params erc_721_swap_pairs.GetErc721SwapPairsParams) middleware.Responder {
-			total, pairList, err := e.SwapPairDao.GetSwapPairs(params)
+			total, pairList, err := e.ERC721SwapPairDao.GetSwapPairs(params)
 			if err != nil {
 				return erc_721_swap_pairs.NewGetErc721SwapPairsBadRequest().WithPayload(&models.Error{Code: http.StatusBadRequest, Message: swag.String(err.Error())})
 			}
@@ -52,6 +52,7 @@ func NewGetSwapPairsHandler(e *env.Env, api *operations.BscEvmCompatibleBridgeAP
 					UpdatedAt:      t.UpdatedAt.String(),
 				})
 			}
+
 			return erc_721_swap_pairs.NewGetErc721SwapPairsOK().WithPayload(&res)
 		},
 	}

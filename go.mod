@@ -16,7 +16,9 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rs/cors v1.8.0 // indirect
 	golang.org/x/net v0.0.0-20211105192438-b53810dc28af // indirect
+	golang.org/x/sys v0.0.0-20211107104306-e0b2ad06fe42 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
+	gorm.io/datatypes v1.0.3 // indirect
 	gorm.io/driver/mysql v1.1.3 // indirect
 	gorm.io/gorm v1.22.2 // indirect
 )

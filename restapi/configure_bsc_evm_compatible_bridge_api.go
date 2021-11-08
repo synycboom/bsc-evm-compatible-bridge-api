@@ -17,6 +17,8 @@ import (
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/middlewares"
 	handler "github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/handler"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations"
+	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_1155_swap_pairs"
+	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_1155_swaps"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_721_swap_pairs"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/erc_721_swaps"
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/restapi/operations/svc_info"
@@ -36,9 +38,11 @@ var (
 	config       *cfg.Config
 	cacheService services.Service
 
-	erc721SwapPairCache,
 	infoCache,
-	erc721SwapCache *middlewares.MWCacher
+	erc721SwapPairCache,
+	erc721SwapCache,
+	erc1155SwapPairCache,
+	erc1155SwapCache *middlewares.MWCacher
 
 	env *uenv.Env
 )
@@ -79,13 +83,25 @@ func configureAPI(api *operations.BscEvmCompatibleBridgeAPIAPI) http.Handler {
 
 	api.Erc721SwapPairsGetErc721SwapPairsHandler = erc_721_swap_pairs.GetErc721SwapPairsHandlerFunc(func(params erc_721_swap_pairs.GetErc721SwapPairsParams) middleware.Responder {
 		return erc721SwapCache.Serve(params.HTTPRequest, func() middleware.Responder {
-			return handler.NewGetSwapPairsHandler(env, api).Serve(params)
+			return handler.NewGetERC721SwapPairsHandler(env, api).Serve(params)
 		}, api.JSONProducer)
 	})
 
 	api.Erc721SwapsGetErc721SwapsHandler = erc_721_swaps.GetErc721SwapsHandlerFunc(func(params erc_721_swaps.GetErc721SwapsParams) middleware.Responder {
 		return erc721SwapPairCache.Serve(params.HTTPRequest, func() middleware.Responder {
-			return handler.NewGetSwapsHandler(env, api).Serve(params)
+			return handler.NewGetERC721SwapsHandler(env, api).Serve(params)
+		}, api.JSONProducer)
+	})
+
+	api.Erc1155SwapPairsGetErc1155SwapPairsHandler = erc_1155_swap_pairs.GetErc1155SwapPairsHandlerFunc(func(params erc_1155_swap_pairs.GetErc1155SwapPairsParams) middleware.Responder {
+		return erc1155SwapCache.Serve(params.HTTPRequest, func() middleware.Responder {
+			return handler.NewGetERC1155SwapPairsHandler(env, api).Serve(params)
+		}, api.JSONProducer)
+	})
+
+	api.Erc1155SwapsGetErc1155SwapsHandler = erc_1155_swaps.GetErc1155SwapsHandlerFunc(func(params erc_1155_swaps.GetErc1155SwapsParams) middleware.Responder {
+		return erc1155SwapPairCache.Serve(params.HTTPRequest, func() middleware.Responder {
+			return handler.NewGetERC1155SwapsHandler(env, api).Serve(params)
 		}, api.JSONProducer)
 	})
 
@@ -141,8 +157,10 @@ func configureServer(s *http.Server, scheme, addr string) {
 	store := cache.NewMemStorage()
 	swapPairCacheMS := config.CacheTTLs["swap_pairs"] * time.Millisecond.Nanoseconds()
 	erc721SwapPairCache = middlewares.NewMWCacher(store, time.Duration(swapPairCacheMS))
+	erc1155SwapPairCache = middlewares.NewMWCacher(store, time.Duration(swapPairCacheMS))
 	swapsCacheMs := config.CacheTTLs["swaps"] * time.Millisecond.Nanoseconds()
 	erc721SwapCache = middlewares.NewMWCacher(store, time.Duration(swapsCacheMs))
+	erc1155SwapCache = middlewares.NewMWCacher(store, time.Duration(swapsCacheMs))
 	infoCacheMs := config.CacheTTLs["info"] * time.Millisecond.Nanoseconds()
 	infoCache = middlewares.NewMWCacher(store, time.Duration(infoCacheMs))
 
@@ -152,17 +170,19 @@ func configureServer(s *http.Server, scheme, addr string) {
 	}
 	// init db
 	dbConfig := config.DB
-	swapPairDao, swapDao, err := dao.NewDaoServices(dbConfig.DSN, dbConfig.LogLevel)
+	erc721swapPairDao, erc721swapDao, erc1155swapPairDao, erc1155swapDao, err := dao.NewDaoServices(dbConfig.DSN, dbConfig.LogLevel)
 	if err != nil {
 		panic(err)
 	}
 
 	// init env
 	env = &uenv.Env{
-		Config:      config,
-		SwapPairDao: swapPairDao,
-		SwapDao:     swapDao,
-		Cache:       store,
+		Config:             config,
+		ERC721SwapPairDao:  erc721swapPairDao,
+		ERC721SwapDao:      erc721swapDao,
+		ERC1155SwapPairDao: erc1155swapPairDao,
+		ERC1155SwapDao:     erc1155swapDao,
+		Cache:              store,
 	}
 }
 

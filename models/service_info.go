@@ -17,8 +17,14 @@ import (
 // swagger:model ServiceInfo
 type ServiceInfo struct {
 
+	// bsc erc 1155 swap agent
+	BscErc1155SwapAgent string `json:"bsc_erc_1155_swap_agent"`
+
 	// bsc erc 721 swap agent
 	BscErc721SwapAgent string `json:"bsc_erc_721_swap_agent"`
+
+	// eth erc 1155 swap agent
+	EthErc1155SwapAgent string `json:"eth_erc_1155_swap_agent"`
 
 	// eth erc 721 swap agent
 	EthErc721SwapAgent string `json:"eth_erc_721_swap_agent"`

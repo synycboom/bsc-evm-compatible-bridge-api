@@ -13,22 +13,22 @@ import (
 	"github.com/synycboom/bsc-evm-compatible-bridge-api/utils/env"
 )
 
-type GetSwapsHandler struct {
+type GetERC721SwapsHandler struct {
 	*env.Env
 	H func(e *env.Env, params erc_721_swaps.GetErc721SwapsParams) middleware.Responder
 }
 
-func (h GetSwapsHandler) Serve(params erc_721_swaps.GetErc721SwapsParams) middleware.Responder {
+func (h GetERC721SwapsHandler) Serve(params erc_721_swaps.GetErc721SwapsParams) middleware.Responder {
 	responder := h.H(h.Env, params)
 	return responder
 }
 
-// NewGetswapsHandler creates a new NewGetswapsHandler instance.
-func NewGetSwapsHandler(e *env.Env, api *operations.BscEvmCompatibleBridgeAPIAPI) GetSwapsHandler {
-	return GetSwapsHandler{
+// NewGetswapsHandler creates a new GetERC721SwapsHandler instance.
+func NewGetERC721SwapsHandler(e *env.Env, api *operations.BscEvmCompatibleBridgeAPIAPI) GetERC721SwapsHandler {
+	return GetERC721SwapsHandler{
 		Env: e,
 		H: func(e *env.Env, params erc_721_swaps.GetErc721SwapsParams) middleware.Responder {
-			total, SwapsList, err := e.SwapDao.GetSwaps(params)
+			total, SwapsList, err := e.ERC721SwapDao.GetSwaps(params)
 			if err != nil {
 				return erc_721_swaps.NewGetErc721SwapsBadRequest().WithPayload(&models.Error{Code: http.StatusBadRequest, Message: swag.String(err.Error())})
 			}
@@ -54,6 +54,7 @@ func NewGetSwapsHandler(e *env.Env, api *operations.BscEvmCompatibleBridgeAPIAPI
 					UpdatedAt:     s.UpdatedAt.String(),
 				})
 			}
+
 			return erc_721_swaps.NewGetErc721SwapsOK().WithPayload(&res)
 		},
 	}

@@ -8,6 +8,7 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 basePath: /
 schemes:
+  - http
   - https
 produces:
   - application/json
@@ -187,7 +188,7 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /v1/erc-721-swap-pairs:
+  /v1/erc-1155-swap-pairs:
     get:
       tags:
         - erc_1155_swap_pairs
@@ -263,7 +264,7 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /v1/erc-721-swaps:
+  /v1/erc-1155-swaps:
     get:
       tags:
         - erc_1155_swaps

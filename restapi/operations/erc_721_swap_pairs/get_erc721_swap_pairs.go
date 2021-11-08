@@ -31,7 +31,7 @@ func NewGetErc721SwapPairs(ctx *middleware.Context, handler GetErc721SwapPairsHa
 
 /* GetErc721SwapPairs swagger:route GET /v1/erc-721-swap-pairs erc_721_swap_pairs getErc721SwapPairs
 
-Gets a list of available swap pairs.
+Gets a list of available ERC721 swap pairs.
 
 */
 type GetErc721SwapPairs struct {
