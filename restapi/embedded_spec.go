@@ -437,11 +437,11 @@ func init() {
     "ServiceInfo": {
       "type": "object",
       "properties": {
-        "bsc_swap_agent": {
+        "bsc_erc_721_swap_agent": {
           "type": "string",
           "x-omitempty": false
         },
-        "eth_swap_agent": {
+        "eth_erc_721_swap_agent": {
           "type": "string",
           "x-omitempty": false
         }
@@ -883,11 +883,11 @@ func init() {
     "ServiceInfo": {
       "type": "object",
       "properties": {
-        "bsc_swap_agent": {
+        "bsc_erc_721_swap_agent": {
           "type": "string",
           "x-omitempty": false
         },
-        "eth_swap_agent": {
+        "eth_erc_721_swap_agent": {
           "type": "string",
           "x-omitempty": false
         }

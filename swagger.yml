@@ -323,9 +323,9 @@ definitions:
   ServiceInfo:
     type: object
     properties:
-      eth_swap_agent:
+      eth_erc_721_swap_agent:
         type: string
         x-omitempty: false
-      bsc_swap_agent:
+      bsc_erc_721_swap_agent:
         type: string
         x-omitempty: false

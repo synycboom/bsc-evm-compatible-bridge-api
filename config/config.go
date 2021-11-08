@@ -23,8 +23,8 @@ type Consumer struct {
 }
 
 type SwapConfig struct {
-	EthSwapAgent string `json:"eth_swap_agent"`
-	BSCSwapAgent string `json:"bsc_swap_agent"`
+	EthErc721SwapAgent string `json:"eth_erc_721_swap_agent"`
+	BSCErc721SwapAgent string `json:"bsc_erc_721_swap_agent"`
 }
 
 type DBConfig struct {
