@@ -766,12 +766,20 @@ func init() {
     "ServiceInfo": {
       "type": "object",
       "properties": {
+        "bsc_chain_id": {
+          "type": "integer",
+          "x-omitempty": false
+        },
         "bsc_erc_1155_swap_agent": {
           "type": "string",
           "x-omitempty": false
         },
         "bsc_erc_721_swap_agent": {
           "type": "string",
+          "x-omitempty": false
+        },
+        "eth_chain_id": {
+          "type": "integer",
           "x-omitempty": false
         },
         "eth_erc_1155_swap_agent": {
@@ -1561,12 +1569,20 @@ func init() {
     "ServiceInfo": {
       "type": "object",
       "properties": {
+        "bsc_chain_id": {
+          "type": "integer",
+          "x-omitempty": false
+        },
         "bsc_erc_1155_swap_agent": {
           "type": "string",
           "x-omitempty": false
         },
         "bsc_erc_721_swap_agent": {
           "type": "string",
+          "x-omitempty": false
+        },
+        "eth_chain_id": {
+          "type": "integer",
           "x-omitempty": false
         },
         "eth_erc_1155_swap_agent": {

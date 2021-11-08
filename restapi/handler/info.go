@@ -24,6 +24,8 @@ func NewGetInfoHandler(e *env.Env, _ *operations.BscEvmCompatibleBridgeAPIAPI) G
 		Env: e,
 		H: func(e *env.Env, _ svc_info.GetInfoParams) middleware.Responder {
 			info := models.ServiceInfo{
+				EthChainID:          e.Config.SwapConfig.ETHChainID,
+				BscChainID:          e.Config.SwapConfig.BSCChainID,
 				BscErc721SwapAgent:  e.Config.SwapConfig.BSCErc721SwapAgent,
 				EthErc721SwapAgent:  e.Config.SwapConfig.EthErc721SwapAgent,
 				BscErc1155SwapAgent: e.Config.SwapConfig.BSCErc1155SwapAgent,

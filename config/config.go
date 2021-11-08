@@ -23,6 +23,8 @@ type Consumer struct {
 }
 
 type SwapConfig struct {
+	ETHChainID          int64  `json:"eth_chain_id"`
+	BSCChainID          int64  `json:"bsc_chain_id"`
 	EthErc721SwapAgent  string `json:"eth_erc_721_swap_agent"`
 	BSCErc721SwapAgent  string `json:"bsc_erc_721_swap_agent"`
 	EthErc1155SwapAgent string `json:"eth_erc_1155_swap_agent"`

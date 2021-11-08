@@ -584,6 +584,12 @@ definitions:
   ServiceInfo:
     type: object
     properties:
+      eth_chain_id:
+        type: integer
+        x-omitempty: false
+      bsc_chain_id:
+        type: integer
+        x-omitempty: false
       eth_erc_721_swap_agent:
         type: string
         x-omitempty: false
