@@ -789,6 +789,30 @@ func init() {
         "eth_erc_721_swap_agent": {
           "type": "string",
           "x-omitempty": false
+        },
+        "fantom_chain_id": {
+          "type": "integer",
+          "x-omitempty": false
+        },
+        "fantom_erc_1155_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "fantom_erc_721_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "polygon_chain_id": {
+          "type": "integer",
+          "x-omitempty": false
+        },
+        "polygon_erc_1155_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "polygon_erc_721_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
         }
       }
     }
@@ -1590,6 +1614,30 @@ func init() {
           "x-omitempty": false
         },
         "eth_erc_721_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "fantom_chain_id": {
+          "type": "integer",
+          "x-omitempty": false
+        },
+        "fantom_erc_1155_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "fantom_erc_721_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "polygon_chain_id": {
+          "type": "integer",
+          "x-omitempty": false
+        },
+        "polygon_erc_1155_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "polygon_erc_721_swap_agent": {
           "type": "string",
           "x-omitempty": false
         }

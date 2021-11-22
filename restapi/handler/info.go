@@ -24,12 +24,18 @@ func NewGetInfoHandler(e *env.Env, _ *operations.BscEvmCompatibleBridgeAPIAPI) G
 		Env: e,
 		H: func(e *env.Env, _ svc_info.GetInfoParams) middleware.Responder {
 			info := models.ServiceInfo{
-				EthChainID:          e.Config.SwapConfig.ETHChainID,
-				BscChainID:          e.Config.SwapConfig.BSCChainID,
-				BscErc721SwapAgent:  e.Config.SwapConfig.BSCErc721SwapAgent,
-				EthErc721SwapAgent:  e.Config.SwapConfig.EthErc721SwapAgent,
-				BscErc1155SwapAgent: e.Config.SwapConfig.BSCErc1155SwapAgent,
-				EthErc1155SwapAgent: e.Config.SwapConfig.EthErc1155SwapAgent,
+				EthChainID:              e.Config.SwapConfig.ETHChainID,
+				BscChainID:              e.Config.SwapConfig.BSCChainID,
+				PolygonChainID:          e.Config.SwapConfig.PolygonChainID,
+				FantomChainID:           e.Config.SwapConfig.FantomChainID,
+				BscErc721SwapAgent:      e.Config.SwapConfig.BSCErc721SwapAgent,
+				EthErc721SwapAgent:      e.Config.SwapConfig.EthErc721SwapAgent,
+				PolygonErc721SwapAgent:  e.Config.SwapConfig.PolygonErc721SwapAgent,
+				FantomErc721SwapAgent:   e.Config.SwapConfig.FantomErc721SwapAgent,
+				BscErc1155SwapAgent:     e.Config.SwapConfig.BSCErc1155SwapAgent,
+				EthErc1155SwapAgent:     e.Config.SwapConfig.EthErc1155SwapAgent,
+				PolygonErc1155SwapAgent: e.Config.SwapConfig.PolygonErc1155SwapAgent,
+				FantomErc1155SwapAgent:  e.Config.SwapConfig.FantomErc1155SwapAgent,
 			}
 			return svc_info.NewGetInfoOK().WithPayload(&info)
 		},

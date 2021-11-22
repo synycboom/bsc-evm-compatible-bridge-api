@@ -34,6 +34,24 @@ type ServiceInfo struct {
 
 	// eth erc 721 swap agent
 	EthErc721SwapAgent string `json:"eth_erc_721_swap_agent"`
+
+	// fantom chain id
+	FantomChainID int64 `json:"fantom_chain_id"`
+
+	// fantom erc 1155 swap agent
+	FantomErc1155SwapAgent string `json:"fantom_erc_1155_swap_agent"`
+
+	// fantom erc 721 swap agent
+	FantomErc721SwapAgent string `json:"fantom_erc_721_swap_agent"`
+
+	// polygon chain id
+	PolygonChainID int64 `json:"polygon_chain_id"`
+
+	// polygon erc 1155 swap agent
+	PolygonErc1155SwapAgent string `json:"polygon_erc_1155_swap_agent"`
+
+	// polygon erc 721 swap agent
+	PolygonErc721SwapAgent string `json:"polygon_erc_721_swap_agent"`
 }
 
 // Validate validates this service info

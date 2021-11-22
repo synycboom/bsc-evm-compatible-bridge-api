@@ -23,12 +23,18 @@ type Consumer struct {
 }
 
 type SwapConfig struct {
-	ETHChainID          int64  `json:"eth_chain_id"`
-	BSCChainID          int64  `json:"bsc_chain_id"`
-	EthErc721SwapAgent  string `json:"eth_erc_721_swap_agent"`
-	BSCErc721SwapAgent  string `json:"bsc_erc_721_swap_agent"`
-	EthErc1155SwapAgent string `json:"eth_erc_1155_swap_agent"`
-	BSCErc1155SwapAgent string `json:"bsc_erc_1155_swap_agent"`
+	ETHChainID              int64  `json:"eth_chain_id"`
+	BSCChainID              int64  `json:"bsc_chain_id"`
+	PolygonChainID          int64  `json:"polygon_chain_id"`
+	FantomChainID           int64  `json:"fantom_chain_id"`
+	EthErc721SwapAgent      string `json:"eth_erc_721_swap_agent"`
+	BSCErc721SwapAgent      string `json:"bsc_erc_721_swap_agent"`
+	PolygonErc721SwapAgent  string `json:"polygon_erc_721_swap_agent"`
+	FantomErc721SwapAgent   string `json:"fantom_erc_721_swap_agent"`
+	EthErc1155SwapAgent     string `json:"eth_erc_1155_swap_agent"`
+	BSCErc1155SwapAgent     string `json:"bsc_erc_1155_swap_agent"`
+	PolygonErc1155SwapAgent string `json:"polygon_erc_1155_swap_agent"`
+	FantomErc1155SwapAgent  string `json:"fantom_erc_1155_swap_agent"`
 }
 
 type DBConfig struct {

@@ -11,9 +11,8 @@
   },
   "cache_ttls": {
     "swaps": 20,
-    "swap_pairs": 60000,
-    "info": 600000,
-    "swap_pair_sms": 60000
+    "swap_pairs": 10000,
+    "info": 100000
   },
   "db": {
     "log_level": "WARN",
